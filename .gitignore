@@ -50,3 +50,6 @@ config.json
 *.swp
 *.swo
 *~
+
+# Local safety snapshot from the audit
+/audit/pre-existing-changes.patch

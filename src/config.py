@@ -1,96 +1,131 @@
+"""Validated preferences with atomic persistence; mouse control is session-only."""
+
 import json
+import math
 import os
-from dataclasses import dataclass, asdict
+import tempfile
+from dataclasses import asdict, dataclass, fields
 from pathlib import Path
+from typing import ClassVar
 
 
 @dataclass
 class AppConfig:
-    # Cursor speed & physics
-    sensitivity: float = 2.0         # Speed multiplier (0.5x to 4.0x)
-    acceleration: float = 1.35       # Velocity curve power (>1.0 accelerates fast sweeps)
-    smoothing_factor: float = 0.50   # 0.1 (instant) to 0.9 (heavy smoothing)
-    
-    # Active mapping bounding box (percentage margin from camera edge)
-    active_margin_x: float = 0.18    # Comfortable reach for full horizontal span
-    active_margin_y: float = 0.18    # Comfortable reach for full vertical span
-    
-    # Pinch trigger thresholds (normalized by hand scale)
-    pinch_threshold_left: float = 0.055    # Index (8) + Thumb (4) -> Left Click / Select Drag
-    pinch_threshold_middle: float = 0.055  # Middle (12) + Thumb (4) -> Medit CAD 3D Pan/Rotate Drag
-    pinch_threshold_ring: float = 0.055    # Ring (16) + Thumb (4) -> Medit CAD Zoom In/Out Scroll
-    pinch_threshold_pinky: float = 0.055   # Pinky (20) + Thumb (4) -> Double-Click
-    pinch_hysteresis: float = 0.020        # Extra margin required to release pinch (prevents jitter)
-    
-    # CAD Drag button setting ("right" for Medit / Dental CAD, "middle" for Fusion/SolidWorks/Blender)
+    sensitivity: float = 2.0
+    smoothing_factor: float = 0.50
+    active_margin_x: float = 0.18
+    active_margin_y: float = 0.18
+    pinch_threshold_left: float = 0.055
+    pinch_threshold_middle: float = 0.055
+    pinch_threshold_ring: float = 0.055  # Read older configuration files.
+    pinch_threshold_pinky: float = 0.055
+    pinch_hysteresis: float = 0.020
     cad_drag_button: str = "right"
-    
-    # Sniper Precision Mode
-    sniper_mode_scale: float = 0.30        # Speed multiplier in sniper mode (0.15x to 0.60x)
-    
-    # Audio Feedback (Acoustic Haptic Click Sounds)
+    sniper_mode_scale: float = 0.30  # Reserved; no gesture currently activates it.
     audio_feedback_enabled: bool = True
-    
-    # Eco Battery-Saver
     eco_battery_saver_enabled: bool = True
-    
-    # Scroll & CAD Zoom parameters
-    scroll_speed: float = 1.2             # Velocity multiplier for continuous zoom/scroll
-    
-    # Click stabilization
-    click_freeze_sec: float = 0.14        # Dampens cursor motion when pinching so click lands accurately
-    click_debounce_sec: float = 0.28      # Debounce to prevent unintentional double clicks
-    drag_hold_sec: float = 0.28           # Hold pinch longer than this to enter Drag mode
-    
-    # Fist pause/resume hold time
-    fist_toggle_hold_sec: float = 0.30    # Hold closed fist to toggle Pause / Resume
-    
-    # Camera & visual display
+    scroll_speed: float = 1.2
+    click_freeze_sec: float = 0.14
+    click_debounce_sec: float = 0.28
+    drag_hold_sec: float = 0.28
+    fist_toggle_hold_sec: float = 0.30
     camera_index: int = 0
     mirror_camera: bool = True
     show_landmarks: bool = True
     show_active_box: bool = True
-    
-    # Adaptive Dual-Speed Cursor Acceleration (Sub-millimeter margin trimming & fast sweeps)
     adaptive_acceleration_enabled: bool = True
-    precision_dampening_factor: float = 0.40  # Speed multiplier for micro-movements
-    high_speed_boost_factor: float = 1.75     # Speed multiplier for fast sweeps
-    
-    # Clinical Floating Mini-HUD (PiP Widget)
-    mini_hud_mode: bool = False               # Compact floating picture-in-picture mode
-    mini_hud_opacity: float = 0.88            # Translucent glassmorphism opacity
-    
-    # Master control
-    is_tracking_enabled: bool = True
+    precision_dampening_factor: float = 0.40
+    high_speed_boost_factor: float = 1.75
+    mini_hud_mode: bool = False
+    mini_hud_opacity: float = 0.88
+    is_tracking_enabled: bool = False
+
+    RANGES: ClassVar[dict] = {
+        "sensitivity": (0.5, 3.5),
+        "smoothing_factor": (0.1, 0.9),
+        "active_margin_x": (0.05, 0.35),
+        "active_margin_y": (0.05, 0.35),
+        "pinch_threshold_left": (0.03, 0.09),
+        "pinch_threshold_middle": (0.03, 0.09),
+        "pinch_threshold_ring": (0.03, 0.09),
+        "pinch_threshold_pinky": (0.03, 0.09),
+        "pinch_hysteresis": (0.005, 0.06),
+        "sniper_mode_scale": (0.15, 0.60),
+        "scroll_speed": (0.5, 3.0),
+        "click_freeze_sec": (0.0, 0.5),
+        "click_debounce_sec": (0.1, 1.0),
+        "drag_hold_sec": (0.15, 1.0),
+        "fist_toggle_hold_sec": (0.1, 2.0),
+        "camera_index": (0, 99),
+        "precision_dampening_factor": (0.2, 0.8),
+        "high_speed_boost_factor": (1.0, 2.5),
+        "mini_hud_opacity": (0.2, 1.0),
+    }
+
+    def validate(self):
+        defaults = type(self)()
+        for field in fields(self):
+            name = field.name
+            value, default = getattr(self, name), getattr(defaults, name)
+            if isinstance(default, bool):
+                if not isinstance(value, bool):
+                    setattr(self, name, default)
+            elif name in self.RANGES:
+                if (
+                    isinstance(value, bool)
+                    or not isinstance(value, (int, float))
+                    or (isinstance(value, float) and not math.isfinite(value))
+                    or (name == "camera_index" and not isinstance(value, int))
+                ):
+                    value = default
+                low, high = self.RANGES[name]
+                setattr(self, name, max(low, min(high, value)))
+            elif name == "cad_drag_button" and value not in ("right", "middle"):
+                self.cad_drag_button = default
+        return self
 
     @classmethod
     def get_config_path(cls) -> Path:
-        """Returns path to user configuration file."""
-        config_dir = Path.home() / ".handtracker"
-        config_dir.mkdir(parents=True, exist_ok=True)
-        return config_dir / "config.json"
+        return Path.home() / ".handtracker" / "config.json"
 
     def save(self):
-        """Save settings to disk."""
+        """Raise on failure so the UI never reports a failed write as saved."""
+        self.validate()
+        path = self.get_config_path()
+        path.parent.mkdir(parents=True, exist_ok=True)
+        data = asdict(self)
+        data.pop("is_tracking_enabled")
+        temporary = None
         try:
-            path = self.get_config_path()
-            with open(path, "w", encoding="utf-8") as f:
-                json.dump(asdict(self), f, indent=2)
-        except Exception as e:
-            print(f"[Config] Error saving config: {e}")
+            with tempfile.NamedTemporaryFile(
+                mode="w",
+                encoding="utf-8",
+                dir=path.parent,
+                prefix=".config-",
+                suffix=".tmp",
+                delete=False,
+            ) as stream:
+                temporary = stream.name
+                json.dump(data, stream, indent=2, allow_nan=False)
+                stream.flush()
+                os.fsync(stream.fileno())
+            os.replace(temporary, path)
+        finally:
+            if temporary and os.path.exists(temporary):
+                os.unlink(temporary)
 
     @classmethod
     def load(cls) -> "AppConfig":
-        """Load settings from disk or return defaults."""
         config = cls()
         try:
-            path = cls.get_config_path()
-            if path.exists():
-                with open(path, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                    for k, v in data.items():
-                        if hasattr(config, k):
-                            setattr(config, k, v)
-        except Exception as e:
-            print(f"[Config] Error loading config: {e}")
-        return config
+            data = json.loads(cls.get_config_path().read_text(encoding="utf-8"))
+            if not isinstance(data, dict):
+                raise ValueError("Settings must be a JSON object")
+            allowed = {field.name for field in fields(cls)} - {"is_tracking_enabled"}
+            for name in allowed & data.keys():
+                setattr(config, name, data[name])
+        except FileNotFoundError:
+            pass
+        except (OSError, ValueError, TypeError) as error:
+            print(f"[Config] Using defaults for unreadable settings: {error}")
+        return config.validate()

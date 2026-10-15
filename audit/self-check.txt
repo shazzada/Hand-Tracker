@@ -1,0 +1,6 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792083364.785286 2451343 gl_context.cc:369] GL version: 2.1 (2.1 Metal - 91.7), renderer: Apple M4
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+W0000 00:00:1792083364.790684 2451473 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792083364.795473 2451476 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+{"status": "ok", "platform": "darwin", "mediapipe": "0.10.21", "opencv": "4.11.0", "numpy": "1.26.4", "customtkinter": "5.2.2", "checks": ["Tk resources", "image preview", "input backend import", "model inference"]}

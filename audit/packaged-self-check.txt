@@ -1,0 +1,12 @@
+2026-10-15 19:59:39,209 WARNING matplotlib.font_manager: Matplotlib is building the font cache; this may take a moment.
+2026-10-15 19:59:43,059 INFO matplotlib.font_manager: Failed to extract font properties from /System/Library/Fonts/LastResort.otf: tuple indices must be integers or slices, not str
+2026-10-15 19:59:43,109 INFO matplotlib.font_manager: Failed to extract font properties from /System/Library/Fonts/Apple Color Emoji.ttc: Non-scalable fonts are not supported
+2026-10-15 19:59:43,145 INFO matplotlib.font_manager: Failed to extract font properties from /System/Library/Fonts/Supplemental/NISC18030.ttf: Non-scalable fonts are not supported
+2026-10-15 19:59:43,149 INFO matplotlib.font_manager: Failed to extract font properties from /System/Library/PrivateFrameworks/FontServices.framework/Resources/Reserved/PingFangUI.ttc: FT_Open_Face (ft2font.cpp line 200) failed with error 0x02: unknown file format
+2026-10-15 19:59:43,195 INFO matplotlib.font_manager: generated new fontManager
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792083583.674209 2478045 gl_context.cc:369] GL version: 2.1 (2.1 Metal - 91.7), renderer: Apple M4
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+W0000 00:00:1792083583.679356 2478541 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792083583.684690 2478538 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+{"status": "ok", "platform": "darwin", "mediapipe": "0.10.21", "opencv": "4.11.0", "numpy": "1.26.4", "customtkinter": "5.2.2", "checks": ["Tk resources", "image preview", "input backend import", "model inference"]}

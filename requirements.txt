@@ -1,10 +1,12 @@
-mediapipe>=0.10.14,<1.0.0
-opencv-python>=4.9.0
-pyautogui>=0.9.54
-pynput>=1.7.7
-customtkinter>=5.2.2
-pillow>=10.2.0
-screeninfo>=0.8.1
-numpy>=1.26.0,<2.0.0
+# This implementation uses the legacy mp.solutions API, removed after 0.10.21.
+mediapipe>=0.10.14,<=0.10.21
+# MediaPipe already requires contrib. Install only one distribution providing cv2.
+opencv-contrib-python>=4.9.0,<4.12
+pyautogui>=0.9.54,<1
+pynput>=1.7.7,<2
+customtkinter>=5.2.2,<6
+pillow>=10.2.0,<13
+screeninfo>=0.8.1,<1
+numpy>=1.26.0,<2
 pyobjc-framework-Quartz>=10.0; sys_platform == 'darwin'
-pyinstaller>=6.4.0
+pyinstaller>=6.4.0,<7

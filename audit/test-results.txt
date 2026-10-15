@@ -1,0 +1,117 @@
+test_corrupt_and_non_object_files_use_defaults (test_config.TestConfig.test_corrupt_and_non_object_files_use_defaults) ... ok
+test_failed_atomic_replace_keeps_old_settings (test_config.TestConfig.test_failed_atomic_replace_keeps_old_settings) ... ok
+test_invalid_field_types_do_not_reach_runtime (test_config.TestConfig.test_invalid_field_types_do_not_reach_runtime) ... ok
+test_mouse_control_is_never_restored (test_config.TestConfig.test_mouse_control_is_never_restored) ... ok
+test_read_does_not_create_directories (test_config.TestConfig.test_read_does_not_create_directories) ... ok
+test_unknown_keys_cannot_overwrite_methods (test_config.TestConfig.test_unknown_keys_cannot_overwrite_methods) ... ok
+test_very_large_integer_clamps_without_overflow (test_config.TestConfig.test_very_large_integer_clamps_without_overflow) ... ok
+test_fist_breaks_out_of_zoom_mode (test_gestures.TestGestureEngine.test_fist_breaks_out_of_zoom_mode)
+Closed fist should immediately break out of an active zoom lock and allow pausing. ... ok
+test_fist_pause_and_resume_toggle (test_gestures.TestGestureEngine.test_fist_pause_and_resume_toggle)
+Closed fist held pauses tracking, and another fist resumes. ... ok
+test_hand_loss_releases_active_drags (test_gestures.TestGestureEngine.test_hand_loss_releases_active_drags)
+When hand data is lost (None), active left and right drags must release. ... ok
+test_medit_pan_drag_right_mouse (test_gestures.TestGestureEngine.test_medit_pan_drag_right_mouse)
+Holding Middle + Thumb longer than drag_hold_sec triggers MEDIT_PAN_DRAG with is_right_down=True. ... ok
+test_middle_drag_middle_button_mode (test_gestures.TestGestureEngine.test_middle_drag_middle_button_mode)
+When cad_drag_button is 'middle', middle pinch drag emits is_middle_down and is_middle_up. ... ok
+test_open_hand_move_gesture (test_gestures.TestGestureEngine.test_open_hand_move_gesture)
+All fingers extended with no pinch triggers MOVE. ... ok
+test_open_palm_left_click (test_gestures.TestGestureEngine.test_open_palm_left_click)
+Open palm with Index + Thumb touch triggers LEFT_CLICK, not zoom. ... ok
+test_pinky_double_click (test_gestures.TestGestureEngine.test_pinky_double_click)
+Pinky and thumb pinch tap fires DOUBLE_CLICK. ... ok
+test_pinky_pinch_with_curled_pinky (test_gestures.TestGestureEngine.test_pinky_pinch_with_curled_pinky)
+Pinky pinch should trigger even if the pinky finger is curled during the pinch. ... ok
+test_sliding_circle_dial_zoom (test_gestures.TestGestureEngine.test_sliding_circle_dial_zoom)
+Drawing clockwise circles in the air triggers ROTATING_ZOOM_IN, counter-clockwise triggers ROTATING_ZOOM_OUT. ... ok
+test_click_gesture_is_preserved_on_curled_release (test_gestures.TestGestureRegressions.test_click_gesture_is_preserved_on_curled_release) ... ok
+test_closest_pinch_wins_and_only_one_action_fires (test_gestures.TestGestureRegressions.test_closest_pinch_wins_and_only_one_action_fires) ... ok
+test_counterclockwise_circle_zooms_out (test_gestures.TestGestureRegressions.test_counterclockwise_circle_zooms_out) ... ok
+test_direct_pinch_switch_releases_drag_before_another_action (test_gestures.TestGestureRegressions.test_direct_pinch_switch_releases_drag_before_another_action) ... ok
+test_drag_changes_button_releases_original_and_waits_for_release (test_gestures.TestGestureRegressions.test_drag_changes_button_releases_original_and_waits_for_release) ... ok
+test_fist_cancels_pending_tap (test_gestures.TestGestureRegressions.test_fist_cancels_pending_tap) ... ok
+test_fist_toggles_once_per_hold_starting_at_zero (test_gestures.TestGestureRegressions.test_fist_toggles_once_per_hold_starting_at_zero) ... ok
+test_hand_loss_cancels_pending_tap (test_gestures.TestGestureRegressions.test_hand_loss_cancels_pending_tap) ... ok
+test_hysteresis_keeps_pinch_until_release_margin (test_gestures.TestGestureRegressions.test_hysteresis_keeps_pinch_until_release_margin) ... ok
+test_leaving_zoom_stops_scroll_immediately (test_gestures.TestGestureRegressions.test_leaving_zoom_stops_scroll_immediately) ... ok
+test_pause_cancels_pending_tap (test_gestures.TestGestureRegressions.test_pause_cancels_pending_tap) ... ok
+test_pinky_long_hold_still_double_clicks (test_gestures.TestGestureRegressions.test_pinky_long_hold_still_double_clicks) ... ok
+test_straight_line_and_reversal_do_not_zoom (test_gestures.TestGestureRegressions.test_straight_line_and_reversal_do_not_zoom) ... ok
+test_time_zero_is_a_valid_pinch_start (test_gestures.TestGestureRegressions.test_time_zero_is_a_valid_pinch_start) ... ok
+test_zoom_entry_cancels_pending_tap_on_first_frame (test_gestures.TestGestureRegressions.test_zoom_entry_cancels_pending_tap_on_first_frame) ... ok
+test_every_failed_backend_is_released (test_gui.TestCameraOpen.test_every_failed_backend_is_released) ... ok
+test_successful_capture_is_owned_by_caller (test_gui.TestCameraOpen.test_successful_capture_is_owned_by_caller) ... ok
+test_camera_error_clears_stale_preview (test_gui.TestDesktopUI.test_camera_error_clears_stale_preview) ... ok
+test_cannot_resume_without_camera (test_gui.TestDesktopUI.test_cannot_resume_without_camera) ... ok
+test_compact_window_fits_and_restores_geometry (test_gui.TestDesktopUI.test_compact_window_fits_and_restores_geometry) ... ok
+test_global_callbacks_are_consumed_on_ui_thread (test_gui.TestDesktopUI.test_global_callbacks_are_consumed_on_ui_thread) ... ok
+test_initial_layout_fits_supported_small_window (test_gui.TestDesktopUI.test_initial_layout_fits_supported_small_window) ... ok
+test_pause_releases_actual_worker_controller (test_gui.TestDesktopUI.test_pause_releases_actual_worker_controller) ... ok
+test_polling_is_rescheduled_after_a_preview_error (test_gui.TestDesktopUI.test_polling_is_rescheduled_after_a_preview_error) ... ok
+test_preview_preserves_aspect_ratio_and_shrinks_to_pip (test_gui.TestDesktopUI.test_preview_preserves_aspect_ratio_and_shrinks_to_pip) ... ok
+test_preview_watchdog_releases_input (test_gui.TestDesktopUI.test_preview_watchdog_releases_input) ... ok
+test_reconnect_pauses_and_requests_worker_restart (test_gui.TestDesktopUI.test_reconnect_pauses_and_requests_worker_restart) ... ok
+test_reset_pauses_and_refreshes_switches (test_gui.TestDesktopUI.test_reset_pauses_and_refreshes_switches) ... ok
+test_resume_permission_failure_stays_paused_and_releases (test_gui.TestDesktopUI.test_resume_permission_failure_stays_paused_and_releases) ... ok
+test_save_failure_is_visible (test_gui.TestDesktopUI.test_save_failure_is_visible) ... ok
+test_worker_camera_read_failure_releases_before_retry (test_gui.TestDesktopUI.test_worker_camera_read_failure_releases_before_retry) ... ok
+test_worker_initialization_failure_is_reported_and_cleaned_up (test_gui.TestDesktopUI.test_worker_initialization_failure_is_reported_and_cleaned_up) ... ok
+test_zz_shutdown_releases_controller_and_stops_listener (test_gui.TestDesktopUI.test_zz_shutdown_releases_controller_and_stops_listener) ... ok
+test_help_does_not_start_gui (test_main.TestCommandLine.test_help_does_not_start_gui) ... ok
+test_invalid_numeric_arguments_are_rejected (test_main.TestCommandLine.test_invalid_numeric_arguments_are_rejected) ... ok
+test_adaptive_high_speed_boost (test_smoothing.TestMouseController.test_adaptive_high_speed_boost)
+Fast sweeps (>35px) are boosted dynamically for multi-monitor reach. ... ok
+test_adaptive_precision_dampening (test_smoothing.TestMouseController.test_adaptive_precision_dampening)
+Micro-movements (<6px) are dampened by precision factor for dental margin lines. ... ok
+test_coordinate_mapping_center (test_smoothing.TestMouseController.test_coordinate_mapping_center)
+Center of camera frame (0.5, 0.5) maps to center of screen. ... ok
+test_coordinate_mapping_margins (test_smoothing.TestMouseController.test_coordinate_mapping_margins)
+Active margin (0.15) maps to edge of screen (0, 0). ... ok
+test_effective_margins_with_sensitivity (test_smoothing.TestMouseController.test_effective_margins_with_sensitivity)
+Effective margins should expand inwards as sensitivity increases. ... ok
+test_mouse_controller_release_all (test_smoothing.TestMouseController.test_mouse_controller_release_all)
+release_all() should release left, right, and middle button hold states. ... ok
+test_scroll_execution_no_error (test_smoothing.TestMouseController.test_scroll_execution_no_error)
+Calling scroll should execute cleanly without raising TypeError or exceptions. ... ok
+test_smoothing_filters_deadzone_jitter (test_smoothing.TestMouseController.test_smoothing_filters_deadzone_jitter)
+Small micro-tremors within deadzone (<1.2px) should stay pinned. ... ok
+test_click_failure_attempts_release (test_smoothing.TestMouseRegressions.test_click_failure_attempts_release) ... ok
+test_display_gaps_snap_to_nearest_real_display (test_smoothing.TestMouseRegressions.test_display_gaps_snap_to_nearest_real_display) ... ok
+test_double_click_posts_two_down_and_up_events (test_smoothing.TestMouseRegressions.test_double_click_posts_two_down_and_up_events) ... ok
+test_fast_movement_does_not_overshoot_target (test_smoothing.TestMouseRegressions.test_fast_movement_does_not_overshoot_target) ... ok
+test_fractional_scroll_is_accumulated (test_smoothing.TestMouseRegressions.test_fractional_scroll_is_accumulated) ... ok
+test_internal_position_is_clamped (test_smoothing.TestMouseRegressions.test_internal_position_is_clamped) ... ok
+test_negative_monitor_coordinates (test_smoothing.TestMouseRegressions.test_negative_monitor_coordinates) ... ok
+test_non_finite_input_rejected (test_smoothing.TestMouseRegressions.test_non_finite_input_rejected) ... ok
+test_release_attempts_every_button_after_one_fails (test_smoothing.TestMouseRegressions.test_release_attempts_every_button_after_one_fails) ... ok
+test_double_click_sets_count_on_both_down_and_up (test_smoothing.TestQuartzEvents.test_double_click_sets_count_on_both_down_and_up) ... ok
+test_macos_scroll_uses_supported_quartz_function (test_smoothing.TestQuartzEvents.test_macos_scroll_uses_supported_quartz_function) ... ok
+test_dial_ready_hud_does_not_claim_zoom_in (test_tracker.TestTracker.test_dial_ready_hud_does_not_claim_zoom_in) ... ok
+test_handedness_is_corrected_for_unmirrored_frame (test_tracker.TestTracker.test_handedness_is_corrected_for_unmirrored_frame) ... ok
+test_invalid_landmarks_do_not_generate_input (test_tracker.TestTracker.test_invalid_landmarks_do_not_generate_input) ... ok
+test_measurements_are_invariant_to_camera_aspect_ratio (test_tracker.TestTracker.test_measurements_are_invariant_to_camera_aspect_ratio) ... ok
+test_paused_hud_uses_supported_characters (test_tracker.TestTracker.test_paused_hud_uses_supported_characters) ... ok
+
+----------------------------------------------------------------------
+Ran 76 tests in 1.160s
+
+OK
+[Config] Using defaults for unreadable settings: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+[Config] Using defaults for unreadable settings: Settings must be a JSON object
+[Config] Using defaults for unreadable settings: Settings must be a JSON object
+[Config] Using defaults for unreadable settings: Settings must be a JSON object
+usage: main.py [-h] [--camera CAMERA] [--sensitivity SENSITIVITY]
+               [--smoothing SMOOTHING] [--self-check]
+
+HandTracker Pro · Webcam gesture mouse & CAD navigation
+
+options:
+  -h, --help            show this help message and exit
+  --camera CAMERA       Camera device index (0–99)
+  --sensitivity SENSITIVITY
+                        Cursor sensitivity (0.5–3.5)
+  --smoothing SMOOTHING
+                        Cursor smoothing (0.1–0.9)
+  --self-check          Check UI resources and model inference without camera
+                        or mouse output
